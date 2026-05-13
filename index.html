@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitraj Glass | Skleněné vitráže Opočno</title>
+    <meta name="description" content="Tradice a řemeslná dokonalost v oblasti skleněných vitráží. Restaurování, výroba, realizace.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --bg-secondary: #141414;
+            --bg-tertiary: #1e1e1e;
+            --text: #ffffff;
+            --text-secondary: #a0a0a0;
+            --accent: #d4af37;
+            --accent-hover: #f0c952;
+            --border: #2a2a2a;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 500;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 0 60px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            padding: 15px 0;
+            background: rgba(10, 10, 10, 0.95);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: var(--text);
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            margin-left: 30px;
+            padding: 4px 8px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+        .lang-btn {
+            background: none;
+            border: 1px solid transparent;
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 6px;
+            transition: var(--transition);
+            line-height: 1;
+            opacity: 0.4;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        .lang-btn img {
+            width: 28px;
+            height: 21px;
+            display: block;
+            border-radius: 3px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+            object-fit: cover;
+        }
+        .lang-btn:hover { opacity: 0.8; border-color: var(--text-secondary); }
+        .lang-btn.active { opacity: 1; border-color: var(--accent); background: rgba(212,175,55,0.15); }
+        .lang-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(10,10,10,0.9), rgba(20,20,20,0.85));
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+        }
+
+        .hero-bg img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            filter: grayscale(30%);
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        .hero-bg img.active {
+            opacity: 0.4;
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 0%, var(--bg) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            padding: 0 40px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: clamp(48px, 8vw, 100px);
+            line-height: 1.1;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .hero h1 span {
+            color: var(--accent);
+            font-style: italic;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        .btn {
+            padding: 16px 40px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: var(--bg);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Sections */
+        section {
+            padding: 120px 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(36px, 5vw, 56px);
+            margin-bottom: 20px;
+        }
+
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .accent-line {
+            width: 60px;
+            height: 2px;
+            background: var(--accent);
+            margin: 20px auto;
+        }
+
+        /* About */
+        #about {
+            background: var(--bg-secondary);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 40px;
+            margin-bottom: 30px;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .about-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            padding: 40px;
+            border-radius: 8px;
+        }
+
+        .about-card h4 {
+            font-size: 20px;
+            margin-bottom: 25px;
+            color: var(--accent);
+        }
+
+        .about-card ul {
+            list-style: none;
+        }
+
+        .about-card li {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        .about-card li:last-child {
+            border-bottom: none;
+        }
+
+        .about-card li span:first-child {
+            color: var(--text-secondary);
+        }
+
+        .license-box {
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(212,175,55,0.1), transparent);
+            border: 1px solid var(--accent);
+            text-align: center;
+        }
+
+        .license-box p {
+            font-size: 14px;
+            color: var(--accent);
+            letter-spacing: 1px;
+        }
+
+        /* Services */
+        #services {
+            background: var(--bg);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 40px 30px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .service-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid var(--accent);
+        }
+
+        .service-card p {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        /* Realizations */
+        #realizations {
+            background: var(--bg-secondary);
+        }
+
+        .filter-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-bottom: 60px;
+        }
+
+        .filter-tab {
+            padding: 12px 25px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 12px;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .filter-tab:hover, .filter-tab.active {
+            background: var(--accent);
+            color: var(--bg);
+            border-color: var(--accent);
+        }
+
+        .realizations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 25px;
+        }
+
+        .realization-card {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .realization-card:hover {
+            border-color: var(--accent);
+        }
+
+        .realization-card h4 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .realization-card ul {
+            list-style: none;
+        }
+
+        .realization-card li {
+            padding: 8px 0;
+            color: var(--text-secondary);
+            font-size: 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .realization-card li:last-child {
+            border-bottom: none;
+        }
+
+        /* Gallery */
+        #gallery {
+            background: var(--bg);
+        }
+
+        .gallery-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .gallery-tab {
+            padding: 10px 20px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-size: 12px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .gallery-tab:hover, .gallery-tab.active {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .gallery-container {
+            display: none;
+        }
+
+        .gallery-container.active {
+            display: block;
+        }
+
+        .gallery-masonry {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 4/3;
+            overflow: hidden;
+            border-radius: 6px;
+            cursor: pointer;
+            background: var(--bg-secondary);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+            opacity: 0;
+        }
+
+        .gallery-item img.loaded {
+            opacity: 1;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover::after {
+            opacity: 1;
+        }
+
+        .gallery-counter {
+            text-align: center;
+            margin-top: 30px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Exhibitions */
+        #exhibitions {
+            background: var(--bg-secondary);
+        }
+
+        .timeline {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 100px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: var(--border);
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 40px;
+            padding: 25px 0;
+            position: relative;
+        }
+
+        .timeline-year {
+            min-width: 60px;
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--accent);
+            text-align: right;
+        }
+
+        .timeline-content {
+            background: var(--bg-tertiary);
+            padding: 20px 25px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            flex: 1;
+        }
+
+        .timeline-content p {
+            font-size: 15px;
+        }
+
+        /* Contact */
+        #contact {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg) 100%);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .contact-card {
+            text-align: center;
+            padding: 50px 30px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .contact-card:hover {
+            border-color: var(--accent);
+        }
+
+        .contact-card h4 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .contact-card p {
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .contact-card a {
+            color: var(--text);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-card a:hover {
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg);
+            border-top: 1px solid var(--border);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        footer p {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 40px;
+            color: var(--text);
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 2001;
+        }
+
+        .lightbox-close:hover {
+            color: var(--accent);
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 50px;
+            color: var(--text);
+            cursor: pointer;
+            padding: 20px;
+            transition: var(--transition);
+        }
+
+        .lightbox-nav:hover {
+            color: var(--accent);
+        }
+
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+
+        .lightbox-counter {
+            position: absolute;
+            bottom: 30px;
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile */
+        @media (max-width: 900px) {
+            .container { padding: 0 25px; }
+            .nav-links { display: none; }
+            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .realizations-grid { grid-template-columns: 1fr; }
+            .timeline::before { display: none; }
+            .timeline-item { flex-direction: column; gap: 10px; }
+            .timeline-year { text-align: left; }
+            .hero-cta { flex-direction: column; }
+            .btn { width: 100%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container nav-inner">
+            <div class="logo">VITRAJ <span>GLASS</span></div>
+            <ul class="nav-links">
+                <li><a href="#about" data-i18n="nav_about">O nás</a></li>
+                <li><a href="#services" data-i18n="nav_services">Služby</a></li>
+                <li><a href="#realizations" data-i18n="nav_realizations">Realizace</a></li>
+                <li><a href="#gallery" data-i18n="nav_gallery">Galerie</a></li>
+                <li><a href="#exhibitions" data-i18n="nav_exhibitions">Výstavy</a></li>
+                <li><a href="#contact" data-i18n="nav_contact">Kontakt</a></li>
+            </ul>
+            <div class="lang-switcher">
+                <button class="lang-btn active" data-lang="cs" title="Čeština"><img src="https://flagcdn.com/cz.svg" alt="CZ"></button>
+                <button class="lang-btn" data-lang="en" title="English"><img src="https://flagcdn.com/gb.svg" alt="EN"></button>
+                <button class="lang-btn" data-lang="de" title="Deutsch"><img src="https://flagcdn.com/de.svg" alt="DE"></button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-content">
+            <span class="hero-badge" data-i18n="hero_badge">Tradice od roku 1958</span>
+            <h1><span data-i18n="hero_title1">Skleněné</span> <span data-i18n="hero_title2">vitráže</span></h1>
+            <p data-i18n="hero_sub">Zasklívání do olova • Restaurování • Výroba nových vitráží</p>
+            <div class="hero-cta">
+                <a href="#gallery" class="btn btn-primary" data-i18n="hero_btn1">Prohlédnout galerii</a>
+                <a href="#contact" class="btn btn-outline" data-i18n="hero_btn2">Kontaktovat</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="about">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-i18n="about_title">O nás</h2>
+                <div class="accent-line"></div>
+                <p data-i18n="about_sub">Tradice řemeslné dokonalosti v oblasti skleněných vitráží</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-text">
+                    <h3>Vítězslav Zilvar</h3>
+                    <p data-i18n="about_p1">Jsme tradiční firma specializující se na výrobu a restaurování skleněných vitráží. Naše řemeslné umění spojuje tradici s moderními technologiemi.</p>
+                    <p data-i18n="about_p2">Hlavním zaměřením firmy je klasické restaurování historických vitráží na kostelních a historických objektech a výroba nových vitráží podle návrhu z barevných skel zdobených malbou s použitím atributů.</p>
+                    <p data-i18n="about_p3">Firma spolupracuje s akademickými malíři a bytovými architekty. Naší snahou je, aby na základě zpracovaného architektonického návrhu vznikla vitráž jako doplněk interiéru – obraz, originální výtvarným návrhem a řemeslným zpracováním.</p>
+                    <div class="license-box">
+                        <p data-i18n="about_license">LICENCE MINISTERSTVA KULTURY<br>k restaurování kulturních památek č. 4.391/97</p>
+                    </div>
+                </div>
+                <div class="about-card">
+                    <h4 data-i18n="about_contact_title">Kontaktní údaje</h4>
+                    <ul>
+                        <li><span data-i18n="about_name_label">Jméno</span><span>Vítězslav Zilvar</span></li>
+                        <li><span data-i18n="about_address_label">Adresa</span><span>Nádražní 159, 517 73 Opočno</span></li>
+                        <li><span data-i18n="about_phone_label">Telefon</span><span>602 443 800</span></li>
+                        <li><span>Email</span><span>vitrajglass@email.cz</span></li>
+                    </ul>
+                    <h4 style="margin-top:30px;" data-i18n="about_education_title">Vzdělání</h4>
+                    <ul>
+                        <li><span data-i18n="about_born_label">Narozen</span><span>1958</span></li>
+                        <li><span data-i18n="about_trade_label">Vyučení</span><span data-i18n="about_trade_val">Brusič - kulič skla</span></li>
+                        <li><span data-i18n="about_school_label">Škola</span><span data-i18n="about_school_val">Umělecká řemesla Praha</span></li>
+                        <li><span data-i18n="about_graduate_label">Absolvent</span><span data-i18n="about_graduate_val">SUPS sklářská Železný Brod</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-i18n="services_title">Služby</h2>
+                <div class="accent-line"></div>
+                <p data-i18n="services_sub">Komplexní služby v oblasti vitráží a sklenářského umění</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3 data-i18n="service_1_title">Restaurování vitráží</h3>
+                    <p data-i18n="service_1_desc">Restaurování historických vitráží na kostelních a historických objektech. Zachování původní krásy a hodnoty.</p>
+                </div>
+                <div class="service-card">
+                    <h3 data-i18n="service_2_title">Výroba nových vitráží</h3>
+                    <p data-i18n="service_2_desc">Výroba nových vitráží podle návrhu z barevných katedrálních skel zdobených sklářskými barvami.</p>
+                </div>
+                <div class="service-card">
+                    <h3 data-i18n="service_3_title">Interiérové vitráže</h3>
+                    <p data-i18n="service_3_desc">Výroba barevných vitráží jako doplňku interiéru – okna, dveře, příčky a stěny.</p>
+                </div>
+                <div class="service-card">
+                    <h3 data-i18n="service_4_title">Nástěnné vitráže</h3>
+                    <p data-i18n="service_4_desc">Výroba nástěnných vitráží z barevných zrcadel v kombinaci s barevným sklem, zakřivených zrcadel.</p>
+                </div>
+                <div class="service-card">
+                    <h3 data-i18n="service_5_title">Malba na sklo</h3>
+                    <p data-i18n="service_5_desc">Malba na sklo sklářskými barvami s výpalem v elektrické peci (znaky měst, erby, figurální motivy).</p>
+                </div>
+                <div class="service-card">
+                    <h3 data-i18n="service_6_title">Leptání skla</h3>
+                    <p data-i18n="service_6_desc">Leptání skla korundem pro výkladce, okna, dveře. Výroba replik historických leptaných výplní.</p>
+                </div>
+                <div class="service-card">
+                    <h3 data-i18n="service_7_title">Figurální vitráže</h3>
+                    <p data-i18n="service_7_desc">Výroba figurálních a květinových výbrusů do skel a zrcadel.</p>
+                </div>
+                <div class="service-card">
+                    <h3 data-i18n="service_8_title">Nástěnná svítidla</h3>
+                    <p data-i18n="service_8_desc">Výroba atypických nástěnných a stropních svítidel. Dekorace stropních podhledů.</p>
+                </div>
+                <div class="service-card">
+                    <h3 data-i18n="service_9_title">Fusing technologie</h3>
+                    <p data-i18n="service_9_desc">Použití progresivní technologie fussing – zatavování skel různých barev a následné složení do vitráží.</p>
+                </div>
+                <div class="service-card">
+                    <h3 data-i18n="service_10_title">Izolační dvojskla</h3>
+                    <p data-i18n="service_10_desc">Osazování vitráží do izolačních dvojskel pro zimní zahrady, bazény, koupelny, vstupní dveře.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="realizations">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-i18n="realizations_title">Realizace</h2>
+                <div class="accent-line"></div>
+                <p data-i18n="realizations_sub">Přehled našich realizací na různých typech objektů</p>
+            </div>
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all" data-i18n="filter_all">Vše</button>
+                <button class="filter-tab" data-filter="church" data-i18n="filter_church">Kostely</button>
+                <button class="filter-tab" data-filter="historic" data-i18n="filter_historic">Historické</button>
+                <button class="filter-tab" data-filter="hotels" data-i18n="filter_hotels">Hotely</button>
+                <button class="filter-tab" data-filter="restaurants" data-i18n="filter_restaurants">Restaurace</button>
+                <button class="filter-tab" data-filter="admin" data-i18n="filter_admin">Administrativa</button>
+            </div>
+            <div class="realizations-grid">
+                <div class="realization-card" data-category="church">
+                    <h4 data-i18n="real_card1_title">Restaurované vitráže</h4>
+                    <ul>
+                        <li>Kostel Nanebevzetí P. Marie, Trutnov</li>
+                        <li>Kostel Sv. Petra a Pavla, Trutnov Poříčí</li>
+                        <li>Kostel Sv. Rocha, Praha</li>
+                        <li>Kostel v Libiřicích, Příslovicích, Hořicích</li>
+                        <li>Hřbitovní kostel v Opočně</li>
+                        <li>Poutní kostel v Homoli, Bětovaních</li>
+                        <li>Klášter Premonstrátů na Strahově</li>
+                        <li>Klášter v Doksanech</li>
+                    </ul>
+                </div>
+                <div class="realization-card" data-category="historic">
+                    <h4 data-i18n="real_card2_title">Historické objekty</h4>
+                    <ul>
+                        <li>Zámek v Opočně, Pardubicích, Kuksu</li>
+                        <li>Gymnázium v Duchcově</li>
+                        <li>Nádraží v Poděbradech</li>
+                        <li>Zelená brána, Pardubice</li>
+                        <li>Dům na Pernštýnském náměstí</li>
+                        <li>Valdštejnský palác v Praze (Senát ČR)</li>
+                    </ul>
+                </div>
+                <div class="realization-card" data-category="hotels">
+                    <h4 data-i18n="real_card3_title">Hotely</h4>
+                    <ul>
+                        <li>Hotel U kříže, Praha 1</li>
+                        <li>Hotel Amadeus, Praha</li>
+                        <li>Hotel Černigov, Hradec Králové</li>
+                        <li>Hotel U královny Elišky, HK</li>
+                        <li>Hotel Adam, Trutnov</li>
+                        <li>Hotel Grand, Hradec Králové</li>
+                    </ul>
+                </div>
+                <div class="realization-card" data-category="restaurants">
+                    <h4 data-i18n="real_card4_title">Restaurace</h4>
+                    <ul>
+                        <li>Tosca, Hradčanské náměstí, Praha</li>
+                        <li>U Bílého slona, Praha 1</li>
+                        <li>Casablanca, Bratislava</li>
+                        <li>U Kubání, Přibyslav</li>
+                        <li>IT Centrum, Vrchlabí</li>
+                        <li>Gambrinus Pivovar Smíchov</li>
+                    </ul>
+                </div>
+                <div class="realization-card" data-category="admin">
+                    <h4 data-i18n="real_card5_title">Administrativní budovy</h4>
+                    <ul>
+                        <li>Anežská ulice, Praha 1</li>
+                        <li>Roháčova 53, 55, Praha 3</li>
+                        <li>Vedení SME Ostrava</li>
+                        <li>Vedení ČKD Praha</li>
+                        <li>Vedení Petrof Hradec Králové</li>
+                        <li>Salon Givenchy, Praha</li>
+                    </ul>
+                </div>
+                <div class="realization-card" data-category="hotels">
+                    <h4 data-i18n="real_card6_title">Banky</h4>
+                    <ul>
+                        <li>Regiobanka, Rychnov nad Kněžnou</li>
+                        <li>Banka v České Skalici, Trutnově</li>
+                        <li>ČS ve Svitavách, Novém Bydžově</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-i18n="gallery_title">Galerie</h2>
+                <div class="accent-line"></div>
+                <p data-i18n="gallery_sub">Více než 700 fotografií našich realizací</p>
+            </div>
+            <div class="gallery-tabs" id="galleryTabs"></div>
+            <div id="galleryContent"></div>
+            <div class="gallery-counter" id="galleryCounter"></div>
+        </div>
+    </section>
+
+    <section id="exhibitions">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-i18n="exhibitions_title">Výstavy</h2>
+                <div class="accent-line"></div>
+                <p data-i18n="exhibitions_sub">Naše účast na výstavách a veletrzích</p>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <span class="timeline-year">2011</span>
+                    <div class="timeline-content"><p>Umění a řemeslo, Orlická galerie, Rychnov nad Kněžnou</p></div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">2008</span>
+                    <div class="timeline-content"><p>Vitráže v architektuře, zámek Opočno</p></div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">2000</span>
+                    <div class="timeline-content"><p>BYTEXPO 2000, Dům a teplo Lysá nad Labem</p></div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">1999</span>
+                    <div class="timeline-content"><p>FOR ARCH Praha, Bytový show Hradec Králové</p></div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">1998</span>
+                    <div class="timeline-content"><p>Spolupráce MOBIS Brno</p></div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">1997</span>
+                    <div class="timeline-content"><p>Spolurealizace výstavy SKLO PODORICKO Opočno</p></div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">1996</span>
+                    <div class="timeline-content"><p>FOR ARCH Praha, GLASS SALON Trenčín</p></div>
+                </div>
+                <div class="timeline-item">
+                    <span class="timeline-year">1992</span>
+                    <div class="timeline-content"><p>Spolurealizace výstavy SKLO V ARCHITEKTUŘE, ing. arch. Jiří Soukup</p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 data-i18n="contact_title">Kontakt</h2>
+                <div class="accent-line"></div>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h4 data-i18n="contact_address_title">Adresa</h4>
+                    <p>Vítězslav Zilvar</p>
+                    <p>Nádražní 159</p>
+                    <p>517 73 Opočno</p>
+                </div>
+                <div class="contact-card">
+                    <h4 data-i18n="contact_contacts_title">Kontakty</h4>
+                    <p><a href="tel:602443800">Tel: 602 443 800</a></p>
+                    <p><a href="mailto:vitrajglass@email.cz">Email: vitrajglass@email.cz</a></p>
+                </div>
+                <div class="contact-card">
+                    <h4 data-i18n="contact_videos_title">Videa</h4>
+                    <p><a href="https://www.youtube.com/watch?v=uHuBoGgGrO0" target="_blank" data-i18n="contact_video1">Toulavá kamera</a></p>
+                    <p><a href="https://www.youtube.com/watch?v=J7aB1dTkA74" target="_blank" data-i18n="contact_video2">Pozvánka do dílny</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p data-i18n="footer">&copy; 2024 Vitraj Glass - Vítězslav Zilvar. Všechna práva vyhrazena.</p>
+        </div>
+    </footer>
+
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <span class="lightbox-nav lightbox-prev">&#10094;</span>
+        <img src="" alt="" id="lightboxImg">
+        <span class="lightbox-nav lightbox-next">&#10095;</span>
+        <div class="lightbox-counter" id="lightboxCounter"></div>
+    </div>
+
+    <script>
+        const galleries = {
+            'Historické vitráže': ['03_01','03_14','03_15','03_16','03_11','03_06','03_12','03_13','03_25','03_26','03_27','03_02','03_03','03_21','03_23','03_22','03_24','03_04','03_17','03_18','03_19','03_34','03_35','03_20','03_28','03_29','03_30','03_31','03_10','03_32','03_33','03_07','03_38','03_08','03_40','03_41','03_39','03_09','01_99','01_119','01_120','01_121','01_122','01_123','01_124','01_125','01_126','01_148','01_149','01_165','01_166','01_167','01_168','01_169','01_170','01_171','01_172','01_173','01_174','01_175','01_176','01_177','01_178','01_179','01_180','01_181','01_182','01_183','01_184','01_185','01_186','01_187','01_188','01_189','01_190','01_191','01_194','01_195','01_196','01_197','01_198','01_199','01_200','01_201','01_202','01_203','01_204','01_205','01_206','01_207','01_208','01_209','01_210','01_211','01_212','01_213','01_214','01_215','01_216','01_217','01_218','01_219','01_220','01_221','01_222','01_223','01_224','01_225','01_226','01_227','01_228','01_229','01_230','01_231','01_232','01_233','01_234','01_235','01_236','01_237','01_238','01_239','01_240','01_241','01_242','01_243','01_244','01_245','01_246','01_247','01_248','01_249','01_250','01_251','01_252','01_253','01_254','01_255','01_256','01_257','01_258','01_259','01_260','01_261','01_262','01_263','01_264','01_265','01_266','01_267','01_268','01_269','01_270','01_271','01_272','01_273','01_274','01_275','01_276','01_277','01_278','01_279','01_280','03_63','03_64','03_65','03_66','03_67','03_68','03_69','03_71','03_72','03_73','03_74','03_75','03_76','03_77','03_78','03_79','03_80','03_81','03_82','03_83','03_84','03_85','03_86','03_87','03_88','03_89','03_90','03_91','03_92','03_93','03_94','03_95','03_96','03_97','03_98','03_99','03_100','03_101','03_102','03_103','03_104','03_105','03_106','03_107','03_108','03_109','03_110','03_111','03_112','03_113','03_114','03_115','03_116','03_117','03_118','03_119','03_120','03_121','03_122','03_123','03_124','03_125','03_126','03_127','03_128','03_129','01_324','01_325','01_326','01_327','01_328','01_329','01_330'],
+            'Okna, dveře, skříňky': ['01_06','01_03','01_02','01_07','01_08','01_09','01_10','01_11','01_12','01_13','01_14','01_15','01_43','01_20','01_19','01_17','01_22','01_23','01_24','01_25','01_26','01_27','01_28','01_29','01_30','01_31','01_32','01_33','01_34','01_35','01_36','01_37','01_38','01_39','01_40','01_41','01_42','01_44','01_45','01_46','01_47','01_48','01_49','01_52','01_72','01_73','01_77','01_78','01_79','01_80','01_81','01_83','01_82','01_84','01_85','01_86','01_87','01_88','01_89','01_90','01_91','01_92','01_93','01_94','01_95','01_96','01_97','01_98','01_100','01_101','01_103','01_104','01_105','01_113','01_114','01_115','01_116','01_117','01_118','01_127','01_128','01_129','01_130','01_131','01_132','01_133','01_134','01_135','01_136','01_137','01_138','01_139','01_140','01_141','01_142','01_143','01_144','01_145','01_146','01_147','01_150','01_151','01_152','01_153','01_154','01_155','01_156','01_157','01_158','01_159','01_160','01_161','01_162','01_163','01_164','02_08','02_09','02_10','02_12','02_13','02_14','02_15','02_16','02_17','02_18','02_19','02_20','02_21','02_22','02_23','02_24','02_25','02_26','02_27','02_28','02_29','02_30','02_31','02_32','02_33','02_34','02_35','02_36','02_37','02_38','02_39','02_40','02_41','02_42','02_43','02_44','02_45','02_46','02_47','02_48','02_49','02_50','02_51','02_52','02_53','02_54','02_55','02_56','02_57','02_58','02_59','02_60','02_61','02_62','02_63','02_64','02_65','02_66','02_67','02_68','02_69','02_70','02_71','02_72','02_73','02_74','02_75','02_76','02_77','02_78','02_79','02_80','02_81','02_82','02_83','01_281','01_282','01_283','01_284','01_285','01_286','01_287','01_288','01_289','01_290','01_291','01_292','01_293','01_294','01_295','01_296','01_297','01_298','01_299','01_300','01_301','01_302','01_303','01_304','01_305','01_306','01_307','01_308','01_309','01_310','01_311','01_312','01_313','01_314','01_315','01_316','01_317','01_318','01_319','01_320','01_321','01_322','01_323','02_93','02_94','02_95','02_96','02_97','02_98','02_99','02_100','02_101','02_102','02_103','02_104','02_105','02_106','02_107','02_108','02_109','02_110','02_111','02_112','02_113','02_114','02_115','02_116','02_117','02_118','02_119','02_120','02_121','02_122','02_123','02_124','02_125','02_128','02_129'],
+            'Kuchyňské linky': ['01_01','01_04','01_05','01_16','01_21','01_41','01_44','01_50','01_51','01_54','01_55','01_57','01_58','01_60','01_61','01_62','01_63','01_64','01_65','01_66','01_67','01_68','01_69','01_70','01_71','01_74','01_75','01_76','01_102','01_106','01_107','01_108','01_109','01_110','01_111','01_112','01_142','03_42','03_43','03_44','03_45','03_46','03_47','03_48','03_49','03_50','03_51','03_52','03_53','03_54','03_55','03_56','03_57','03_58','03_59','03_60','03_61','03_62','02_85','02_86','02_87','02_88','02_89','02_90','02_91','03_130'],
+            'Zrcadla, koupelny': ['02_01','02_02','02_03','02_04','02_05','02_06','08_04','08_05','04_10','04_11','04_12','04_13'],
+            'Atypická svítidla': ['02_54','02_55','02_56','02_57','02_78','02_79','02_104','02_105'],
+            'Zimní zahrady, bazény': ['02_26','02_27','02_28','02_29','02_56','02_57'],
+            'Nástěnné vitráže': ['01_77','01_78','01_95','01_96','01_97'],
+            'Lept skla korundem': ['01_40','01_41','01_72','01_73','01_240','01_241','01_242','01_243'],
+            'Figurální vitráže': ['01_188','01_189','01_190','01_191','01_254','01_255','01_256','01_257'],
+            'Restaurování': ['03_14','03_15','03_16','03_25','03_26','03_27','03_21','03_23','03_22','03_24','03_04','03_17','03_18','03_19','03_34','03_35','03_20','03_28','03_29','03_30','03_31','03_10','03_32','03_33','03_07','03_38','03_08','03_40','03_41','03_39','03_09'],
+            'Figurální vitraj': ['01_188','01_189','01_190','01_191','01_254','01_255','01_256','01_257','01_258','01_259','01_260','01_261','01_262','01_263'],
+            'Tavené sklo': ['01_324','01_325','01_326','01_327','01_328','01_329','01_330'],
+            'Návrhy vitráží': ['01_212','01_213','01_214','01_215','03_107','03_108'],
+            'Hra se sklem': ['01_281','01_282','01_283','01_284','01_285','01_286'],
+            'Znaky měst': ['01_212','01_213','01_214','01_215','01_216','01_217'],
+            'Andělé': ['01_195','01_194','03_107','03_108'],
+            'Fussing': ['01_152','01_153','01_154','01_155'],
+            'Návrh výplní': ['03_63','03_64','03_65','03_66','03_67']
+        };
+
+        const baseUrl = './images/';
+        let currentImages = [];
+        let currentIndex = 0;
+
+        function generateGallery() {
+            const tabsContainer = document.getElementById('galleryTabs');
+            const contentContainer = document.getElementById('galleryContent');
+            const counterContainer = document.getElementById('galleryCounter');
+            
+            const galleryNames = Object.keys(galleries);
+            
+            galleryNames.forEach((name, index) => {
+                const btn = document.createElement('button');
+                btn.className = `gallery-tab ${index === 0 ? 'active' : ''}`;
+                btn.textContent = name;
+                btn.addEventListener('click', () => showGallery(index));
+                tabsContainer.appendChild(btn);
+            });
+            
+            showGallery(0);
+            
+            function showGallery(index) {
+                document.querySelectorAll('.gallery-tab').forEach((t, i) => {
+                    t.classList.toggle('active', i === index);
+                });
+                
+                const name = galleryNames[index];
+                const images = galleries[name];
+                
+                contentContainer.innerHTML = `<div class="gallery-container active"><div class="gallery-masonry" id="masonry-${index}"></div></div>`;
+                
+                const masonry = document.getElementById(`masonry-${index}`);
+                const uniqueImages = [...new Set(images)];
+                
+                counterContainer.textContent = `${name}: ${uniqueImages.length} fotografií`;
+                
+                uniqueImages.forEach((img, i) => {
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item';
+                    item.innerHTML = `<img data-src="${baseUrl}${img}.jpg" alt="${name} ${i+1}">`;
+                    
+                    const imgEl = item.querySelector('img');
+                    imgEl.onload = () => imgEl.classList.add('loaded');
+                    
+                    item.addEventListener('click', () => openLightbox(uniqueImages, i));
+                    masonry.appendChild(item);
+                });
+                
+                lazyLoad();
+            }
+        }
+
+        function lazyLoad() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.onload = () => img.classList.add('loaded');
+                            observer.unobserve(img);
+                        }
+                    }
+                });
+            }, { rootMargin: '100px' });
+            
+            document.querySelectorAll('.gallery-item img[data-src]').forEach(img => {
+                observer.observe(img);
+            });
+        }
+
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxCounter = document.getElementById('lightboxCounter');
+
+        function openLightbox(images, index) {
+            currentImages = images.map(img => `${baseUrl}${img}.jpg`);
+            currentIndex = index;
+            updateLightbox();
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function updateLightbox() {
+            lightboxImg.src = currentImages[currentIndex];
+            lightboxCounter.textContent = `${currentIndex + 1} / ${currentImages.length}`;
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function navigate(direction) {
+            currentIndex = (currentIndex + direction + currentImages.length) % currentImages.length;
+            updateLightbox();
+        }
+
+        document.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+        document.querySelector('.lightbox-prev').addEventListener('click', () => navigate(-1));
+        document.querySelector('.lightbox-next').addEventListener('click', () => navigate(1));
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigate(-1);
+            if (e.key === 'ArrowRight') navigate(1);
+        });
+
+        // Filter
+        document.querySelectorAll('.filter-tab').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filter = btn.dataset.filter;
+                document.querySelectorAll('.realization-card').forEach(card => {
+                    card.style.display = (filter === 'all' || card.dataset.category === filter) ? 'block' : 'none';
+                });
+            });
+        });
+
+        // Nav scroll
+        window.addEventListener('scroll', () => {
+            document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        generateGallery();
+
+        // Hero background slideshow using gallery glass images
+        const heroImages = [
+            './images/01_01.jpg',
+            './images/03_14.jpg',
+            './images/02_01.jpg',
+            './images/01_12.jpg',
+            './images/03_25.jpg'
+        ];
+
+        const heroBg = document.getElementById('heroBg');
+        let currentHeroIndex = 0;
+
+        heroImages.forEach((src, index) => {
+            const img = document.createElement('img');
+            img.src = src;
+            if (index === 0) img.classList.add('active');
+            heroBg.appendChild(img);
+        });
+
+        setInterval(() => {
+            const imgs = heroBg.querySelectorAll('img');
+            imgs[currentHeroIndex].classList.remove('active');
+            currentHeroIndex = (currentHeroIndex + 1) % imgs.length;
+            imgs[currentHeroIndex].classList.add('active');
+        }, 5000);
+        // Language switcher
+        const translations = {
+            cs: {
+                nav_about: 'O nás', nav_services: 'Služby', nav_realizations: 'Realizace',
+                nav_gallery: 'Galerie', nav_exhibitions: 'Výstavy', nav_contact: 'Kontakt',
+                hero_badge: 'Tradice od roku 1958',
+                hero_title1: 'Skleněné', hero_title2: 'vitráže',
+                hero_sub: 'Zasklívání do olova • Restaurování • Výroba nových vitráží',
+                hero_btn1: 'Prohlédnout galerii', hero_btn2: 'Kontaktovat',
+                about_title: 'O nás', about_sub: 'Tradice řemeslné dokonalosti v oblasti skleněných vitráží',
+                about_p1: 'Jsme tradiční firma specializující se na výrobu a restaurování skleněných vitráží. Naše řemeslné umění spojuje tradici s moderními technologiemi.',
+                about_p2: 'Hlavním zaměřením firmy je klasické restaurování historických vitráží na kostelních a historických objektech a výroba nových vitráží podle návrhu z barevných skel zdobených malbou s použitím atributů.',
+                about_p3: 'Firma spolupracuje s akademickými malíři a bytovými architekty. Naší snahou je, aby na základě zpracovaného architektonického návrhu vznikla vitráž jako doplněk interiéru – obraz, originální výtvarným návrhem a řemeslným zpracováním.',
+                about_license: 'LICENCE MINISTERSTVA KULTURY<br>k restaurování kulturních památek č. 4.391/97',
+                about_contact_title: 'Kontaktní údaje', about_name_label: 'Jméno', about_address_label: 'Adresa', about_phone_label: 'Telefon',
+                about_education_title: 'Vzdělání', about_born_label: 'Narozen', about_trade_label: 'Vyučení',
+                about_trade_val: 'Brusič - kulič skla', about_school_label: 'Škola', about_school_val: 'Umělecká řemesla Praha',
+                about_graduate_label: 'Absolvent', about_graduate_val: 'SUPS sklářská Železný Brod',
+                services_title: 'Služby', services_sub: 'Komplexní služby v oblasti vitráží a sklenářského umění',
+                service_1_title: 'Restaurování vitráží', service_1_desc: 'Restaurování historických vitráží na kostelních a historických objektech. Zachování původní krásy a hodnoty.',
+                service_2_title: 'Výroba nových vitráží', service_2_desc: 'Výroba nových vitráží podle návrhu z barevných katedrálních skel zdobených sklářskými barvami.',
+                service_3_title: 'Interiérové vitráže', service_3_desc: 'Výroba barevných vitráží jako doplňku interiéru – okna, dveře, příčky a stěny.',
+                service_4_title: 'Nástěnné vitráže', service_4_desc: 'Výroba nástěnných vitráží z barevných zrcadel v kombinaci s barevným sklem, zakřivených zrcadel.',
+                service_5_title: 'Malba na sklo', service_5_desc: 'Malba na sklo sklářskými barvami s výpalem v elektrické peci (znaky měst, erby, figurální motivy).',
+                service_6_title: 'Leptání skla', service_6_desc: 'Leptání skla korundem pro výkladce, okna, dveře. Výroba replik historických leptaných výplní.',
+                service_7_title: 'Figurální vitráže', service_7_desc: 'Výroba figurálních a květinových výbrusů do skel a zrcadel.',
+                service_8_title: 'Nástěnná svítidla', service_8_desc: 'Výroba atypických nástěnných a stropních svítidel. Dekorace stropních podhledů.',
+                service_9_title: 'Fusing technologie', service_9_desc: 'Použití progresivní technologie fussing – zatavování skel různých barev a následné složení do vitráží.',
+                service_10_title: 'Izolační dvojskla', service_10_desc: 'Osazování vitráží do izolačních dvojskel pro zimní zahrady, bazény, koupelny, vstupní dveře.',
+                realizations_title: 'Realizace', realizations_sub: 'Přehled našich realizací na různých typech objektů',
+                filter_all: 'Vše', filter_church: 'Kostely', filter_historic: 'Historické', filter_hotels: 'Hotely', filter_restaurants: 'Restaurace', filter_admin: 'Administrativa',
+                real_card1_title: 'Restaurované vitráže', real_card2_title: 'Historické objekty', real_card3_title: 'Hotely',
+                real_card4_title: 'Restaurace', real_card5_title: 'Administrativní budovy', real_card6_title: 'Banky',
+                gallery_title: 'Galerie', gallery_sub: 'Více než 700 fotografií našich realizací',
+                exhibitions_title: 'Výstavy', exhibitions_sub: 'Naše účast na výstavách a veletrzích',
+                contact_title: 'Kontakt', contact_address_title: 'Adresa', contact_contacts_title: 'Kontakty', contact_videos_title: 'Videa',
+                contact_video1: 'Toulavá kamera', contact_video2: 'Pozvánka do dílny',
+                footer: '© 2024 Vitraj Glass - Vítězslav Zilvar. Všechna práva vyhrazena.'
+            },
+            en: {
+                nav_about: 'About', nav_services: 'Services', nav_realizations: 'Projects',
+                nav_gallery: 'Gallery', nav_exhibitions: 'Exhibitions', nav_contact: 'Contact',
+                hero_badge: 'Tradition since 1958',
+                hero_title1: 'Stained', hero_title2: 'Glass',
+                hero_sub: 'Lead glazing • Restoration • New stained glass',
+                hero_btn1: 'View gallery', hero_btn2: 'Contact us',
+                about_title: 'About Us', about_sub: 'Tradition of craftsmanship in stained glass',
+                about_p1: 'We are a traditional company specializing in the production and restoration of stained glass. Our craftsmanship combines tradition with modern technologies.',
+                about_p2: 'Our main focus is the classic restoration of historical stained glass in churches and historical buildings, and the production of new stained glass from colored cathedral glass decorated with painting.',
+                about_p3: 'We collaborate with academic painters and interior architects. Our goal is to create stained glass as an interior complement – a picture with original artistic design and craftsmanship.',
+                about_license: 'LICENSE OF THE MINISTRY OF CULTURE<br>for restoration of cultural monuments No. 4.391/97',
+                about_contact_title: 'Contact Info', about_name_label: 'Name', about_address_label: 'Address', about_phone_label: 'Phone',
+                about_education_title: 'Education', about_born_label: 'Born', about_trade_label: 'Qualification',
+                about_trade_val: 'Glass grinder - polisher', about_school_label: 'School', about_school_val: 'Arts & Crafts Prague',
+                about_graduate_label: 'Graduate', about_graduate_val: 'SUPS Glass School Železný Brod',
+                services_title: 'Services', services_sub: 'Comprehensive services in stained glass and glass art',
+                service_1_title: 'Stained Glass Restoration', service_1_desc: 'Restoration of historical stained glass in churches and historical buildings. Preserving original beauty and value.',
+                service_2_title: 'New Stained Glass', service_2_desc: 'Production of new stained glass from colored cathedral glass decorated with glass paints.',
+                service_3_title: 'Interior Stained Glass', service_3_desc: 'Production of colored stained glass as interior complement – windows, doors, partitions, walls.',
+                service_4_title: 'Wall Stained Glass', service_4_desc: 'Wall stained glass from colored mirrors combined with colored glass, curved mirrors.',
+                service_5_title: 'Glass Painting', service_5_desc: 'Glass painting with glass paints fired in an electric kiln (city emblems, coats of arms, figurative motifs).',
+                service_6_title: 'Glass Etching', service_6_desc: 'Glass etching with corundum for shop windows, doors. Production of replicas of historical etched panels.',
+                service_7_title: 'Figurative Stained Glass', service_7_desc: 'Figurative and floral glass grinding into glass and mirrors.',
+                service_8_title: 'Wall Lamps', service_8_desc: 'Production of custom wall and ceiling lamps. Decoration of ceiling panels.',
+                service_9_title: 'Fusing Technology', service_9_desc: 'Progressive fusing technology – melting different colored glasses together into stained glass.',
+                service_10_title: 'Insulating Glass', service_10_desc: 'Mounting stained glass into insulating double glazing for winter gardens, pools, bathrooms, entrance doors.',
+                realizations_title: 'Projects', realizations_sub: 'Overview of our projects across various building types',
+                filter_all: 'All', filter_church: 'Churches', filter_historic: 'Historic', filter_hotels: 'Hotels', filter_restaurants: 'Restaurants', filter_admin: 'Administrative',
+                real_card1_title: 'Restored Stained Glass', real_card2_title: 'Historical Buildings', real_card3_title: 'Hotels',
+                real_card4_title: 'Restaurants', real_card5_title: 'Administrative Buildings', real_card6_title: 'Banks',
+                gallery_title: 'Gallery', gallery_sub: 'Over 700 photos of our projects',
+                exhibitions_title: 'Exhibitions', exhibitions_sub: 'Our participation in exhibitions and fairs',
+                contact_title: 'Contact', contact_address_title: 'Address', contact_contacts_title: 'Contacts', contact_videos_title: 'Videos',
+                contact_video1: 'Wandering Camera', contact_video2: 'Workshop Invitation',
+                footer: '© 2024 Vitraj Glass - Vítězslav Zilvar. All rights reserved.'
+            },
+            de: {
+                nav_about: 'Über uns', nav_services: 'Dienstleistungen', nav_realizations: 'Projekte',
+                nav_gallery: 'Galerie', nav_exhibitions: 'Ausstellungen', nav_contact: 'Kontakt',
+                hero_badge: 'Tradition seit 1958',
+                hero_title1: 'Glasmalerei', hero_title2: '& Bleiverglasung',
+                hero_sub: 'Bleiverglasung • Restaurierung • Neue Glasfenster',
+                hero_btn1: 'Galerie ansehen', hero_btn2: 'Kontaktieren',
+                about_title: 'Über uns', about_sub: 'Tradition der Handwerkskunst in Glasmalerei',
+                about_p1: 'Wir sind ein traditionelles Unternehmen, das sich auf die Herstellung und Restaurierung von Glasmalereien spezialisiert hat. Unsere Handwerkskunst verbindet Tradition mit modernen Technologien.',
+                about_p2: 'Unser Hauptschwerpunkt ist die klassische Restaurierung historischer Glasfenster in Kirchen und historischen Gebäuden sowie die Herstellung neuer Glasfenster aus farbigem Kathedralglas mit Malerei.',
+                about_p3: 'Wir arbeiten mit akademischen Malern und Innenarchitekten zusammen. Unser Ziel ist es, Glasmalerei als Raumschmuck zu schaffen – ein Bild mit originellem künstlerischem Design und Handwerkskunst.',
+                about_license: 'LIZENZ DES KULTURMINISTERIUMS<br>für die Restaurierung von Kulturdenkmälern Nr. 4.391/97',
+                about_contact_title: 'Kontaktinformationen', about_name_label: 'Name', about_address_label: 'Adresse', about_phone_label: 'Telefon',
+                about_education_title: 'Ausbildung', about_born_label: 'Geboren', about_trade_label: 'Ausbildung',
+                about_trade_val: 'Glasschleifer - Glaspolierer', about_school_label: 'Schule', about_school_val: 'Kunstgewerbe Prag',
+                about_graduate_label: 'Absolvent', about_graduate_val: 'SUPS Glasfachschule Železný Brod',
+                services_title: 'Dienstleistungen', services_sub: 'Umfassende Dienstleistungen in Glasmalerei und Glaskunst',
+                service_1_title: 'Glasrestaurierung', service_1_desc: 'Restaurierung historischer Glasfenster in Kirchen und historischen Gebäuden. Bewahrung ursprünglicher Schönheit und Wertes.',
+                service_2_title: 'Neue Glasfenster', service_2_desc: 'Herstellung neuer Glasfenster aus farbigem Kathedralglas, verziert mit Glasfarben.',
+                service_3_title: 'Innenraumverglasung', service_3_desc: 'Herstellung farbiger Glasfenster als Raumschmuck – Fenster, Türen, Trennwände, Wände.',
+                service_4_title: 'Wandverglasung', service_4_desc: 'Wandglasfenster aus farbigen Spiegeln in Kombination mit farbigem Glas, gebogenen Spiegeln.',
+                service_5_title: 'Glasmalerei', service_5_desc: 'Glasmalerei mit Glasfarben, gebrannt im Elektroofen (Stadtwappen, Wappen, figürliche Motive).',
+                service_6_title: 'Glasätzung', service_6_desc: 'Glasätzung mit Korund für Schaufenster, Türen. Herstellung von Repliken historischer geätzter Füllungen.',
+                service_7_title: 'Figürliche Glaskunst', service_7_desc: 'Figürliche und florale Glasschliffe in Glas und Spiegel.',
+                service_8_title: 'Wandleuchten', service_8_desc: 'Herstellung von individuellen Wand- und Deckenleuchten. Dekoration von Deckenpaneelen.',
+                service_9_title: 'Fusing-Technologie', service_9_desc: 'Fortschrittliche Fusing-Technologie – Verschmelzung verschiedener farbiger Gläser zu Glasmalerei.',
+                service_10_title: 'Isolierverglasung', service_10_desc: 'Montage von Glasmalerei in Isolierverglasung für Wintergärten, Schwimmbäder, Badezimmer, Eingangstüren.',
+                realizations_title: 'Projekte', realizations_sub: 'Übersicht unserer Projekte an verschiedenen Gebäudetypen',
+                filter_all: 'Alle', filter_church: 'Kirchen', filter_historic: 'Historisch', filter_hotels: 'Hotels', filter_restaurants: 'Restaurants', filter_admin: 'Verwaltung',
+                real_card1_title: 'Restaurierte Glasfenster', real_card2_title: 'Historische Gebäude', real_card3_title: 'Hotels',
+                real_card4_title: 'Restaurants', real_card5_title: 'Verwaltungsgebäude', real_card6_title: 'Banken',
+                gallery_title: 'Galerie', gallery_sub: 'Über 700 Fotos unserer Projekte',
+                exhibitions_title: 'Ausstellungen', exhibitions_sub: 'Unsere Teilnahme an Ausstellungen und Messen',
+                contact_title: 'Kontakt', contact_address_title: 'Adresse', contact_contacts_title: 'Kontakte', contact_videos_title: 'Videos',
+                contact_video1: 'Wanderkamera', contact_video2: 'Werkstatteinladung',
+                footer: '© 2024 Vitraj Glass - Vítězslav Zilvar. Alle Rechte vorbehalten.'
+            }
+        };
+
+        function setLanguage(lang) {
+            const t = translations[lang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.dataset.i18n;
+                if (t[key]) el.innerHTML = t[key];
+            });
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.lang === lang);
+            });
+            localStorage.setItem('vitrajLang', lang);
+        }
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+        });
+
+        const savedLang = localStorage.getItem('vitrajLang');
+        if (savedLang && translations[savedLang]) setLanguage(savedLang);
+    </script>
+</body>
+</html>

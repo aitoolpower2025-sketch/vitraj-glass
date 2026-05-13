@@ -1,5 +1,1 @@
-# Ignore large files tracking locally only
-*.ps1
-*.txt
-*.html
-!README.md
+.netlify/
